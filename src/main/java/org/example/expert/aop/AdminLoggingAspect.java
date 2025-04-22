@@ -28,9 +28,8 @@ public class AdminLoggingAspect {
         this.objectMapper = objectMapper;
     }
 
-    // 관리자가 접근하는 API만 타겟팅
-    @Pointcut("execution(* org.example.expert.domain.comment.controller.CommentAdminController.deleteComment(..)) || " +
-            "execution(* org.example.expert.domain.user.controller.UserAdminController.changeUserRole(..))")
+    // @AdminLogable 어노테이션이 붙은 메서드만 타겟팅
+    @Pointcut("@annotation(org.example.expert.aop.AdminLogable)")
     public void adminOnlyEndpoints() {}
 
     @Around("adminOnlyEndpoints()")
